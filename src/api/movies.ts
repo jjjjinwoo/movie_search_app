@@ -1,10 +1,12 @@
 import axios from 'axios';
+import type { MovieSearchResponse } from '../types/movie';
 
-export const fetchMovies = async (query: string) => {
-  const res = await axios.get(`https://www.omdbapi.com/`, {
+export const fetchMovies = async (query: string): Promise<MovieSearchResponse> => {
+  const res = await axios.get('https://api.themoviedb.org/3/search/movie', {
     params: {
-      apikey: import.meta.env.VITE_OMDB_API_KEY,
-      s: query
+      api_key: import.meta.env.VITE_TMDB_API_KEY,
+      query,
+      language: 'ko-KR',
     }
   });
   return res.data;
